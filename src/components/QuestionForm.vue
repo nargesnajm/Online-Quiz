@@ -1,9 +1,15 @@
 <template>
-  <div class="mt-6">
-    
+  <div class="mt-6 ">
     <div class="question-box p-6 rounded-xl">
       <div class="mb-4">
-        <div class="text-lg font-semibold text-white mb-10">{{ question.text }}</div>
+        <div
+  :class="[
+    'text-lg font-semibold text-white mb-10',
+    question.type === 'short' ? 'mt-25' : ''
+  ]"
+>
+  {{ question.text }}
+</div>
       </div>
 
       <div v-if="question.type === 'mcq'" class="grid gap-3">
@@ -14,7 +20,7 @@
           :class="[labelClass(opt)]"
         >
           <input type="radio" :value="opt" v-model="localValue" class="form-radio" />
-          <span class="text-white ">{{ opt }}</span>
+          <span class="text-white">{{ opt }}</span>
         </label>
       </div>
 
@@ -23,7 +29,7 @@
           v-model="localValue"
           type="text"
           placeholder="پاسخ خود را اینجا بنویسید"
-          class="neon-input w-full p-3 rounded-md"
+          class="neon-input w-full p-3 mb-30 rounded-md"
           :class="{'border-red-400': showValidation && !modelValue}"
         />
       </div>
@@ -48,38 +54,28 @@ watch(localValue, (v) => emits('update:modelValue', v))
 
 function labelClass(option) {
   if (!localValue.value) return props.showValidation && !props.modelValue ? 'border-red-400' : ''
-
-  if (option === props.question.correct) {
-    /*if (localValue.value === option) {
-      return 'correct-option'
-    }
-    if (localValue.value !== props.question.correct) {
-      return 'correct-option-outline'
-    }*/
-  }
-
-  /*if (option === localValue.value && localValue.value !== props.question.correct) {
-    return 'wrong-option'
-  }*/
-
   return props.showValidation && !props.modelValue ? 'border-red-400' : ''
 }
 </script>
 
 <style scoped>
-
 .question-box {
   border: 2px solid #ff00ff;
   box-shadow: 0 0 5px #ff00ff, 0 0 7px #ff00ff, 0 0 10px #ff00ff;
   background: transparent;
+
+  /* 🔹 Added to make all boxes the same height */
+  height: 396px; /* Adjust until all questions fit nicely */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-
+/* Question text neon style */
 .question-text {
   color: #ff00ff;
   text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
 }
-
 
 .answer-option {
   border: 2px solid #00ffff;
@@ -100,7 +96,9 @@ function labelClass(option) {
   color: white;
 }
 
-.neon-input :active, .neon-input :focus { border-color: white;}
+.neon-input:active, .neon-input:focus {
+  border-color: white;
+}
 
 .correct-option {
   border: 2px solid #39ff14;
@@ -120,4 +118,6 @@ function labelClass(option) {
   color: white;
   box-shadow: 0 0 5px #ff3131, 0 0 10px #ff3131, 0 0 20px #ff3131;
 }
+
+
 </style>
