@@ -1,7 +1,7 @@
 <template>
     <div class="text-center py-12">
       <p class="text-slate-500 mb-20 font-semibold text-lg ">آزمون شامل {{ total }} تا سواله. قبل از رفتن به سوال بعدی، جواب رو وارد و یا انتخاب کن.</p>
-      <button @click="$emit('start')" class="px-8 py-3 bg-[#46CB18] text-white rounded-full font-semibold shadow hover:bg-[#66FF00] transition neon-button" >شروع آزمون</button>
+      <button @click="$emit('start')" class="px-8 py-3 bg-transparent text-white rounded-full font-semibold shadow hover:bg-[#46dd14] transition neon-button" >شروع آزمون</button>
     </div>
   </template>
   
